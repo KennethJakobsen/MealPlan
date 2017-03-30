@@ -7,7 +7,5 @@
   </Section>
   
   -->
-  <Section Name="ConnectionStrings">
-    <Parameter Name="AzureServiceBus" Value="Endpoint=sb://ksjmealplan.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=x2sldICfAyGonvjZirrRFOPQuusftI6V8Gh4IrFBTkg="/>
-  </Section>
+  
 </Settings>
