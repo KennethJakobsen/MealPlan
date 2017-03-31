@@ -8,7 +8,9 @@
   <Section Name="ReplicatorSecurityConfig" />
 
   <!-- Add your custom configuration sections and parameters here. -->
-  
- 
+
+  <Section Name="ConnectionStrings">
+    <Parameter Name="AzureServiceBus" Value="" />
+  </Section>
   
 </Settings>

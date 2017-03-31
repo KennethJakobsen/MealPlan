@@ -7,5 +7,7 @@
   </Section>
   
   -->
-  
+  <Section Name="ConnectionStrings">
+    <Parameter Name="AzureServiceBus" Value="" />
+  </Section>
 </Settings>
