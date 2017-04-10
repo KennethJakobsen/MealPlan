@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="CategoryDto.cs" />
     <Compile Include="GroceryDto.cs" />
+    <Compile Include="GroceryLineDto.cs" />
     <Compile Include="InstructionDto.cs" />
     <Compile Include="MealDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

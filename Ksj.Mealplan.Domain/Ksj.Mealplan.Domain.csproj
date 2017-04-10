@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Grocery.cs" />
+    <Compile Include="Model\GroceryLine.cs" />
     <Compile Include="Model\Instruction.cs" />
     <Compile Include="Model\Meal.cs" />
     <Compile Include="Model\Category.cs" />

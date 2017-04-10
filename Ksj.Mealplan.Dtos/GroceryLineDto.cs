@@ -1,15 +1,9 @@
-﻿using System.Runtime.Serialization;
-
-namespace Ksj.Mealplan.Domain.Model
+﻿namespace Ksj.Mealplan.Dtos
 {
-    [DataContract]
-    public class GroceryLine
+    public class GroceryLineDto
     {
-        [DataMember]
         public int Amount { get; set; }
-        [DataMember]
-        public Grocery Grocery { get; set; }
-        [DataMember]
+        public GroceryDto Grocery { get; set; }
         public string Unit { get; set; }
     }
 }

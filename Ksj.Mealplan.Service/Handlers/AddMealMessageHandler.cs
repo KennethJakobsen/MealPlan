@@ -19,14 +19,18 @@ namespace Ksj.Mealplan.Service.Handlers
         {
             var meal = new Meal()
             {
-                Groceries = message.Meal.Groceries.Select(g => new Grocery()
+                Groceries = message.Meal.Lines.Select(g => new GroceryLine()
                 {
-                    AverageGramsPerUnit = g.AverageGramsPerUnit,
-                    KcalPer100g = g.KcalPer100g,
-                    UnitName = g.UnitName,
-                    Id = g.Id,
-                    Name = g.Name,
-                    PluralName = g.PluralName
+                    Amount = g.Amount,
+                    Unit = g.Unit,
+                    Grocery = new Grocery() { 
+                    AverageGramsPerUnit = g.Grocery.AverageGramsPerUnit,
+                    KcalPer100g = g.Grocery.KcalPer100g,
+                    UnitName = g.Grocery.UnitName,
+                    Id = g.Grocery.Id,
+                    Name = g.Grocery.Name,
+                    PluralName = g.Grocery.PluralName
+}
                 }),
                 Name = message.Meal.Name,
                 Instructions = message.Meal.Instructions.Select(i => new Instruction()

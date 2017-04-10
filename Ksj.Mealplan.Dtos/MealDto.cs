@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Security.AccessControl;
-using Ksj.Mealplan.Domain.Model;
 
 namespace Ksj.Mealplan.Dtos
 {
