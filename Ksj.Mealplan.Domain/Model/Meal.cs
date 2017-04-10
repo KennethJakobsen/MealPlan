@@ -9,7 +9,7 @@ namespace Ksj.Mealplan.Domain.Model
     public class Meal
     {
         [DataMember]
-        public IEnumerable<Grocery> Groceries { get; set; }
+        public IEnumerable<GroceryLine> Groceries { get; set; }
         [DataMember]
         public string Name { get; set; }
         [DataMember]
