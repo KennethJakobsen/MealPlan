@@ -14,7 +14,7 @@ namespace Ksj.Mealplan.Service.Controllers
         {
             _repository = repository;
         }
-
+        [Route("")]
         [HttpGet]
         public async Task<IHttpActionResult> GetMeals()
         {

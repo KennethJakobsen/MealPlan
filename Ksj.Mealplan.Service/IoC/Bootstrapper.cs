@@ -16,6 +16,7 @@ namespace Ksj.Mealplan.Service.IoC
             //container.Register<IHandleMessages<AddGroceryMessage>, AddGroceryMessageHandler>();
 
             container.Register<IRepository<Grocery>, GroceryRepository>();
+            container.Register<IRepository<Meal>, MealRepository>();
 
             container.RegisterApiControllers();
             GlobalContainer = container;

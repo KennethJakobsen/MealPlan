@@ -8,7 +8,7 @@ namespace Ksj.Mealplan.Infrastructure
 {
     public class MealRepository : BaseRepository<Meal>, IRepository<Meal>
     {
-        public MealRepository(IReliableStateManager stateManager, string collectionName) : base(stateManager, collectionName)
+        public MealRepository(IReliableStateManager stateManager) : base(stateManager, "meal-repository")
         {
         }
 

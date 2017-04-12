@@ -13,7 +13,7 @@ namespace Ksj.Mealplan.Gateway.Controllers
     [RoutePrefix("meals")]
     public class MealController : BaseApiController
     {
-        public MealController() : base(new Uri("fabric:/Ksj.Mealplan/Service"), "groceries")
+        public MealController() : base(new Uri("fabric:/Ksj.Mealplan/Service"), "meals")
         {
         }
         [Route("meal")]
