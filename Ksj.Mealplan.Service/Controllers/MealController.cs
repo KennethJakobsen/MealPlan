@@ -5,6 +5,7 @@ using Ksj.Mealplan.Infrastructure;
 
 namespace Ksj.Mealplan.Service.Controllers
 {
+    [RoutePrefix("meal")]
     public class MealController : ApiController
     {
         private readonly IRepository<Meal> _repository;
