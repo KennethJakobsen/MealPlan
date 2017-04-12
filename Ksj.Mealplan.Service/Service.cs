@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Ksj.Mealplan.Infrastructure;
+using Ksj.Mealplan.Messages;
 using Ksj.Mealplan.Service.Handlers;
 using Ksj.Mealplan.Service.IoC;
 using Ksj.Mealplan.Service.Messages;
@@ -35,7 +36,7 @@ namespace Ksj.Mealplan.Service
         private const string ErrorQueue = "mealplan-error";
         
         private readonly ServiceFabricConfigurationSettings configuration;
-        private readonly Type[] eventTypes = { typeof(AddGroceryMessage) };
+        private readonly Type[] eventTypes = { typeof(AddGroceryMessage), typeof(AddMealMessage) };
         private IBus bus;
 
         public Service(StatefulServiceContext context)
@@ -80,6 +81,8 @@ namespace Ksj.Mealplan.Service
             {
                 var adaptor = new BuiltinHandlerActivator();
                 adaptor.Register(() => new AddGroceryMessageHandler(new GroceryRepository(StateManager)));
+                adaptor.Register(() => new AddMealMessageHandler(new MealRepository(StateManager)));
+
                 ServiceEventSource.Current.ServiceMessage(this.Context, $"{nameof(Service)} Configure Rebus");
                 var connectionString = configuration.GetConnectionString("AzureServiceBus");
                 bus = ConfigureRebus(adaptor, connectionString, InputQueue);

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Ksj.Mealplan.Domain.Model;
 using Ksj.Mealplan.Infrastructure;
@@ -19,6 +20,7 @@ namespace Ksj.Mealplan.Service.Handlers
         {
             var meal = new Meal()
             {
+                Id = string.IsNullOrEmpty(message.Meal.Id) ? Guid.NewGuid() : new Guid(message.Meal.Id),
                 Groceries = message.Meal.Lines.Select(g => new GroceryLine()
                 {
                     Amount = g.Amount,
@@ -39,7 +41,7 @@ namespace Ksj.Mealplan.Service.Handlers
                     Headline = i.Headline
                 }),
                 NumberOfPersons = message.Meal.NumberOfPersons,
-                Category = message.Meal.Category.Select(c => new Category()
+                Category = message.Meal.Category?.Select(c => new Category()
                 {
                     Name = c.Name,
                     Id = c.Id

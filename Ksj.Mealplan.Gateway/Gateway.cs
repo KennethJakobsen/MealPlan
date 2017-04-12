@@ -4,6 +4,7 @@ using System.Fabric;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Ksj.Mealplan.Messages;
 using Ksj.Mealplan.Service;
 using Ksj.Mealplan.Service.Messages;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
@@ -46,12 +47,14 @@ namespace Ksj.Mealplan.Gateway
         protected override Task OnOpenAsync(CancellationToken cancellationToken)
         {
             var adaptor = new BuiltinHandlerActivator();
+           
             Bus = Configure.With(adaptor)
                 .Logging(x => x.Trace())
                 .Transport(x => x.UseAzureServiceBusAsOneWayClient(_configurationSettings.GetConnectionString("AzureServiceBus")))
                 .Routing(r =>
                     r.TypeBased()
                     .Map<AddGroceryMessage>(InputQueue)
+                    .Map<AddMealMessage>(InputQueue)
                 )
                 .Start();
         

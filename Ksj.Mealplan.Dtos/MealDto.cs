@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.AccessControl;
 
 namespace Ksj.Mealplan.Dtos
@@ -16,5 +17,6 @@ namespace Ksj.Mealplan.Dtos
         public int NumberOfPersons { get; set; }
 
         public IEnumerable<CategoryDto> Category { get; set; }
+        public string Id { get; set; }
     }
 }
