@@ -17,7 +17,8 @@ namespace Ksj.Mealplan.Service
         public static void Configuration(IAppBuilder appBuilder)
         {
             var stateManager = appBuilder.GetReliableStateManager();
-            var container = Bootstrapper.GlobalContainer;
+            var container = new ServiceContainer();
+            Bootstrapper.Bootstrap(container);
             container.RegisterInstance(typeof(IReliableStateManager), stateManager);
             
 
@@ -51,5 +52,6 @@ namespace Ksj.Mealplan.Service
 
             return config;
         }
+
     }
 }

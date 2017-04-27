@@ -12,6 +12,7 @@ using Ksj.Mealplan.Messages;
 using Ksj.Mealplan.Service.Handlers;
 using Ksj.Mealplan.Service.IoC;
 using Ksj.Mealplan.Service.Messages;
+using LightInject;
 using Microsoft.Owin.Hosting;
 using Microsoft.ServiceFabric.Data;
 using Microsoft.ServiceFabric.Data.Collections;
@@ -24,6 +25,7 @@ using Rebus.Retry.Simple;
 using Owin;
 using Rebus.Activation;
 using Rebus.LightInject;
+using Serilog;
 
 namespace Ksj.Mealplan.Service
 {
@@ -36,13 +38,16 @@ namespace Ksj.Mealplan.Service
         private const string ErrorQueue = "mealplan-error";
         
         private readonly ServiceFabricConfigurationSettings configuration;
-        private readonly Type[] eventTypes = { typeof(AddGroceryMessage), typeof(AddMealMessage) };
-        private IBus bus;
+        private readonly Type[] _eventTypes = { typeof(AddGroceryMessage), typeof(AddMealMessage) };
+        private IBus _bus;
+        private readonly ServiceContainer _rebusContainer;
 
         public Service(StatefulServiceContext context)
             : base(context)
         {
-            Bootstrapper.Bootstrap();
+            _rebusContainer = new ServiceContainer();
+            
+            Bootstrapper.Bootstrap(_rebusContainer);
             configuration = GetServiceConfiguration();
         }
 
@@ -85,11 +90,11 @@ namespace Ksj.Mealplan.Service
 
                 ServiceEventSource.Current.ServiceMessage(this.Context, $"{nameof(Service)} Configure Rebus");
                 var connectionString = configuration.GetConnectionString("AzureServiceBus");
-                bus = ConfigureRebus(adaptor, connectionString, InputQueue);
+                _bus = ConfigureRebus(adaptor, connectionString, InputQueue);
                 
-                var subscriptionTasks = eventTypes.Select(eventType => bus.Subscribe(eventType));
+                var subscriptionTasks = _eventTypes.Select(eventType => _bus.Subscribe(eventType));
                 await Task.WhenAll(subscriptionTasks);
-                Bootstrapper.GlobalContainer.RegisterInstance(typeof(IBus), bus);
+                _rebusContainer.RegisterInstance(typeof(IBus), _bus);
             }
         }
         private ServiceFabricConfigurationSettings GetServiceConfiguration()
@@ -97,13 +102,45 @@ namespace Ksj.Mealplan.Service
             var configurationPackageObject = Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
             return new ServiceFabricConfigurationSettings(configurationPackageObject.Settings);
         }
-        private IBus ConfigureRebus(IContainerAdapter builtinHandlerActivator, string connectionString, string inputQueueName)
+        private static IBus ConfigureRebus(IHandlerActivator builtinHandlerActivator, string connectionString, string inputQueueName)
         {
             return Configure.With(builtinHandlerActivator)
                     .Transport(t => t.UseAzureServiceBus(connectionString, inputQueueName))
                     .Options(o => o.SimpleRetryStrategy(ErrorQueue))
                     .Start();
         }
+        protected override Task OnChangeRoleAsync(ReplicaRole newRole, CancellationToken cancellationToken)
+        {
+            if (_bus != null && newRole != ReplicaRole.Primary)
+            {
+                _bus?.Dispose();
+                _bus = null;
+                Log.Information("#_#_Resetting local cluster");
+            }
+
+            return base.OnChangeRoleAsync(newRole, cancellationToken);
+        }
+        protected override async Task OnCloseAsync(CancellationToken cancellationToken)
+        {
+            ServiceEventSource.Current.ServiceMessage(Context, $"{nameof(Service)} Closing");
+            Dispose();
+            await base.OnCloseAsync(cancellationToken);
+        }
+
+        protected override void OnAbort()
+        {
+            ServiceEventSource.Current.ServiceMessage(Context, $"{nameof(Service)} Aborting");
+            Dispose();
+            base.OnAbort();
+        }
+
+        public void Dispose()
+        {
+            _bus?.Dispose();
+            _rebusContainer?.Dispose();
+        }
+
+        
     }
     
 }
