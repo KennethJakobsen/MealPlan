@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "Ksj.Mealplan", "Ksj.Mealplan\Ksj.Mealplan.sfproj", "{69842575-BAE1-40DF-B6EA-B89C07418475}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ksj.Mealplan.Gateway", "Ksj.Mealplan.Gateway\Ksj.Mealplan.Gateway.csproj", "{5437AEDB-EF2E-480E-B90B-EED8249253B3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ksj.Mealplan.Domain", "Ksj.Mealplan.Domain\Ksj.Mealplan.Domain.csproj", "{44DEDD86-50A4-4161-8E2A-68064E661C35}"
 EndProject
@@ -18,6 +16,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ksj.Mealplan.Helpers", "Ksj.Mealplan.Helpers\Ksj.Mealplan.Helpers.csproj", "{56F77172-CE1B-4AB1-BACC-E57525E3DBB6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ksj.Mealplan.Dtos", "Ksj.Mealplan.Dtos\Ksj.Mealplan.Dtos.csproj", "{10895583-0E30-4F9B-BF55-49BC42AD1C3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ksj.Mealplan.Gateway", "Ksj.Mealplan.Gateway\Ksj.Mealplan.Gateway.csproj", "{5437AEDB-EF2E-480E-B90B-EED8249253B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ksj.Mealplan.Notification", "Ksj.Mealplan.Notification\Ksj.Mealplan.Notification.csproj", "{5F386BCA-C05B-413E-ADCD-4D0A144C5BEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +37,6 @@ Global
 		{69842575-BAE1-40DF-B6EA-B89C07418475}.Release|x64.ActiveCfg = Release|x64
 		{69842575-BAE1-40DF-B6EA-B89C07418475}.Release|x64.Build.0 = Release|x64
 		{69842575-BAE1-40DF-B6EA-B89C07418475}.Release|x64.Deploy.0 = Release|x64
-		{5437AEDB-EF2E-480E-B90B-EED8249253B3}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{5437AEDB-EF2E-480E-B90B-EED8249253B3}.Debug|x64.ActiveCfg = Debug|x64
-		{5437AEDB-EF2E-480E-B90B-EED8249253B3}.Debug|x64.Build.0 = Debug|x64
-		{5437AEDB-EF2E-480E-B90B-EED8249253B3}.Release|Any CPU.ActiveCfg = Release|x64
-		{5437AEDB-EF2E-480E-B90B-EED8249253B3}.Release|x64.ActiveCfg = Release|x64
-		{5437AEDB-EF2E-480E-B90B-EED8249253B3}.Release|x64.Build.0 = Release|x64
 		{44DEDD86-50A4-4161-8E2A-68064E661C35}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{44DEDD86-50A4-4161-8E2A-68064E661C35}.Debug|x64.ActiveCfg = Debug|x64
 		{44DEDD86-50A4-4161-8E2A-68064E661C35}.Debug|x64.Build.0 = Debug|x64
@@ -77,8 +73,25 @@ Global
 		{10895583-0E30-4F9B-BF55-49BC42AD1C3E}.Release|Any CPU.ActiveCfg = Release|x64
 		{10895583-0E30-4F9B-BF55-49BC42AD1C3E}.Release|x64.ActiveCfg = Release|x64
 		{10895583-0E30-4F9B-BF55-49BC42AD1C3E}.Release|x64.Build.0 = Release|x64
+		{5437AEDB-EF2E-480E-B90B-EED8249253B3}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{5437AEDB-EF2E-480E-B90B-EED8249253B3}.Debug|x64.ActiveCfg = Debug|x64
+		{5437AEDB-EF2E-480E-B90B-EED8249253B3}.Debug|x64.Build.0 = Debug|x64
+		{5437AEDB-EF2E-480E-B90B-EED8249253B3}.Release|Any CPU.ActiveCfg = Release|x64
+		{5437AEDB-EF2E-480E-B90B-EED8249253B3}.Release|x64.ActiveCfg = Release|x64
+		{5437AEDB-EF2E-480E-B90B-EED8249253B3}.Release|x64.Build.0 = Release|x64
+		{5F386BCA-C05B-413E-ADCD-4D0A144C5BEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F386BCA-C05B-413E-ADCD-4D0A144C5BEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F386BCA-C05B-413E-ADCD-4D0A144C5BEB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5F386BCA-C05B-413E-ADCD-4D0A144C5BEB}.Debug|x64.Build.0 = Debug|Any CPU
+		{5F386BCA-C05B-413E-ADCD-4D0A144C5BEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F386BCA-C05B-413E-ADCD-4D0A144C5BEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F386BCA-C05B-413E-ADCD-4D0A144C5BEB}.Release|x64.ActiveCfg = Release|Any CPU
+		{5F386BCA-C05B-413E-ADCD-4D0A144C5BEB}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A717B5B6-4DFF-425B-A2FE-4A8D1FC032CE}
 	EndGlobalSection
 EndGlobal
