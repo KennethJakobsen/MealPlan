@@ -17,11 +17,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Server.HttpSys" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Server.WebListener" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0-alpha1-5" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.0.0-alpha1-5" />
-    <PackageReference Include="Microsoft.AspNetCore.Sockets" Version="1.0.0-alpha1-5" />
-    <PackageReference Include="Microsoft.AspNetCore.Sockets.Common.Http" Version="1.0.0-alpha1-5" />
-    <PackageReference Include="Microsoft.AspNetCore.Sockets.Http" Version="1.0.0-alpha1-5" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0-alpha1-10000" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.0.0-alpha1-10000" />
+    <PackageReference Include="Microsoft.AspNetCore.Sockets" Version="1.0.0-alpha1-10000" />
+    <PackageReference Include="Microsoft.AspNetCore.Sockets.Common.Http" Version="1.0.0-alpha1-10000" />
+    <PackageReference Include="Microsoft.AspNetCore.Sockets.Http" Version="1.0.0-alpha1-10000" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
     <PackageReference Include="Microsoft.ServiceFabric" Version="5.7.198" />
     <PackageReference Include="Microsoft.ServiceFabric.AspNetCore.WebListener" Version="2.7.198" />
