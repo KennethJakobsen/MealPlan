@@ -4,7 +4,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>69842575-bae1-40df-b6ea-b89c07418475</ProjectGuid>
     <ProjectVersion>1.6</ProjectVersion>
-    <MinToolsVersion>1.5</MinToolsVersion>
+    <MinToolsVersion>1.6</MinToolsVersion>
+    <AddCorrelationIds>false</AddCorrelationIds>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
