@@ -10,8 +10,8 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
+  <ItemGroup  Condition=" '$(TargetFramework)' == 'netstandard2.0' " Label=".NET Standard 2.0 Package References">
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1"  />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
@@ -23,12 +23,15 @@
     <PackageReference Include="Microsoft.AspNetCore.Sockets.Common.Http" Version="1.0.0-alpha1-10000" />
     <PackageReference Include="Microsoft.AspNetCore.Sockets.Http" Version="1.0.0-alpha1-10000" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' " Label=".NET 4.6.1 Package References">
+
     <PackageReference Include="Microsoft.ServiceFabric" Version="5.7.198" />
     <PackageReference Include="Microsoft.ServiceFabric.AspNetCore.WebListener" Version="2.7.198" />
     <PackageReference Include="Microsoft.ServiceFabric.Data" Version="2.7.198" />
     <PackageReference Include="Microsoft.ServiceFabric.Services" Version="2.7.198" />
   </ItemGroup>
-
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
