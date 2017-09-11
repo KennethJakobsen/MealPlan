@@ -20,7 +20,7 @@ namespace Ksj.Mealplan.Notification
                 // When Service Fabric creates an instance of this service type,
                 // an instance of the class is created in this host process.
 
-                ServiceRuntime.RegisterServiceAsync("Ksj.Mealplan.NotificationType",
+                ServiceRuntime.RegisterServiceAsync("NotificationType",
                     context => new Notification(context)).GetAwaiter().GetResult();
 
                 ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(Notification).Name);
