@@ -13,7 +13,7 @@ namespace Ksj.Mealplan.Gateway.Controllers
     [RoutePrefix("times")]
     public class TimeController : BaseApiController
     {
-        public TimeController() : base(new Uri("fabric:/Ksj.Mealplan/Ksj.Mealplan.Notification"), "times/")
+        public TimeController() : base(new Uri("fabric:/Ksj.Mealplan/Notification"), "times/")
         {
         }
         [Route("api/time")]
