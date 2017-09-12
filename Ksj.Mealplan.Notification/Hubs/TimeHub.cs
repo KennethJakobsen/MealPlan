@@ -21,13 +21,13 @@ namespace Ksj.Mealplan.Notification.Hubs
             return base.OnConnectedAsync();
         }
 
-        public void StartTime()
+        public async Task StartTime()
         {
             TimeService.Instance.PublishTime = true;
             while (TimeService.Instance.PublishTime)
             {
-                base.Clients.All.InvokeAsync("Change", DateTime.UtcNow);
-                Thread.Sleep(100);
+                await Clients.All.InvokeAsync("Change", DateTime.UtcNow);
+                await Task.Delay(100);
             }
 
         }
