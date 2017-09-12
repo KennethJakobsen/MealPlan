@@ -11,9 +11,11 @@ namespace Ksj.Mealplan.Notification.Hubs
     
     public class TimeHub : Hub
     {
-        public TimeHub()
-        {
+        private readonly TimeService _timeService;
 
+        public TimeHub(TimeService timeService)
+        {
+            _timeService = timeService;
         }
         
         public override Task OnConnectedAsync()
@@ -23,8 +25,8 @@ namespace Ksj.Mealplan.Notification.Hubs
 
         public async Task StartTime()
         {
-            TimeService.Instance.PublishTime = true;
-            while (TimeService.Instance.PublishTime)
+            _timeService.PublishTime = true;
+            while (_timeService.PublishTime)
             {
                 await Clients.All.InvokeAsync("Change", DateTime.UtcNow);
                 await Task.Delay(100);
@@ -33,7 +35,7 @@ namespace Ksj.Mealplan.Notification.Hubs
         }
         public void StopTime()
         {
-            TimeService.Instance.PublishTime = false;
+            _timeService.PublishTime = false;
 
         }
     }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ksj.Mealplan.Notification.Hubs;
+using Ksj.Mealplan.Notification.Services;
+using LightInject;
+using LightInject.SignalR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
@@ -17,6 +20,7 @@ namespace Ksj.Mealplan.Notification
     {
         public Startup(IHostingEnvironment env)
         {
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -42,6 +46,7 @@ namespace Ksj.Mealplan.Notification
                         .AllowCredentials());
             });
             services.AddSignalR();
+            services.Add(new ServiceDescriptor(typeof(TimeService), typeof(TimeService), ServiceLifetime.Singleton));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
