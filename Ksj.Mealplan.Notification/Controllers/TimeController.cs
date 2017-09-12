@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.Sockets;
 using Microsoft.AspNetCore.Sockets.Client;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Ksj.Mealplan.Notification.Controllers
 {
@@ -14,11 +15,13 @@ namespace Ksj.Mealplan.Notification.Controllers
     public class TimeController : Controller
     {
         private readonly IHubContext<TimeHub> _context;
+        private readonly IServiceProvider _serviceProvider;
         private readonly ConnectionManager _manager;
 
-        public TimeController(IHubContext<TimeHub> context)
+        public TimeController(IHubContext<TimeHub> context, IServiceProvider serviceProvider)
         {
             _context = context;
+            _serviceProvider = serviceProvider;
         }
         // GET api/values
         [HttpGet]

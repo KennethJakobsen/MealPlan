@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Ksj.Mealplan.Notification.Hubs
 {
+    
     public class TimeHub : Hub
     {
+        private bool _publishTime = false;
         public TimeHub()
         {
 
@@ -17,15 +19,22 @@ namespace Ksj.Mealplan.Notification.Hubs
         public override Task OnConnectedAsync()
         {
             return base.OnConnectedAsync();
+            
         }
 
         public void StartTime()
         {
-            while (true)
+            _publishTime = true;
+            while (_publishTime)
             {
                 base.Clients.All.InvokeAsync("Change", DateTime.UtcNow);
                 Thread.Sleep(100);
             }
+
+        }
+        public void StopTime()
+        {
+            _publishTime = false;
 
         }
     }
