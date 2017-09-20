@@ -57,7 +57,8 @@ namespace Ksj.Mealplan.Notification
             loggerFactory.AddDebug();
             app.UseCors("CorsPolicy");
             app.UseSignalR(s => {
-                s.MapHub<TimeHub>("time");
+                s.MapHub<TimeHub>("hubs/time");
+                s.MapHub<NoteHub>("hubs/note");
                 
             });
             app.UseMvc();
