@@ -59,7 +59,8 @@ namespace Ksj.Mealplan.Notification
             app.UseSignalR(s => {
                 s.MapHub<TimeHub>("hubs/time");
                 s.MapHub<NoteHub>("hubs/note");
-                
+                s.MapHub<ChatHub>("hubs/chat");
+
             });
             app.UseMvc();
             
