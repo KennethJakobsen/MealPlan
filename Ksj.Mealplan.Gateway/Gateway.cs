@@ -25,7 +25,7 @@ namespace Ksj.Mealplan.Gateway
         private const string InputQueue = "mealplan-input";
         private const string ErrorQueue = "mealplan-error";
         private readonly ServiceFabricConfigurationSettings _configurationSettings;
-        public static IBus Bus;
+        public IBus Bus;
         public Gateway(StatelessServiceContext context)
             : base(context)
         {
@@ -46,23 +46,31 @@ namespace Ksj.Mealplan.Gateway
 
         protected override Task RunAsync(CancellationToken cancellationToken)
         {
-            var adaptor = new BuiltinHandlerActivator();
 
-            Bus = Configure.With(adaptor)
-                .Logging(x => x.Trace())
-                .Transport(x => x.UseAzureServiceBusAsOneWayClient(_configurationSettings.GetConnectionString("AzureServiceBus")))
-                .Routing(r =>
-                    r.TypeBased()
-                        .Map<AddGroceryMessage>(InputQueue)
-                        .Map<AddMealMessage>(InputQueue)
-                )
-                .Start();
+            if (cancellationToken.IsCancellationRequested)
+            {
+                Bus = Configure.With(new BuiltinHandlerActivator())
+                    .Logging(x => x.Trace())
+                    .Transport(x =>
+                        x.UseAzureServiceBusAsOneWayClient(
+                            _configurationSettings.GetConnectionString("AzureServiceBus")))
+                    .Routing(r =>
+                        r.TypeBased()
+                            .Map<AddGroceryMessage>(InputQueue)
+                            .Map<AddMealMessage>(InputQueue)
+                    )
+                    .Start();
+            }
             return base.RunAsync(cancellationToken);
         }
 
-       
-    
-    private ServiceFabricConfigurationSettings GetServiceConfiguration()
+        protected override Task OnCloseAsync(CancellationToken cancellationToken)
+        {
+            Bus.Dispose();
+            return base.OnCloseAsync(cancellationToken);
+        }
+
+        private ServiceFabricConfigurationSettings GetServiceConfiguration()
     {
         var configurationPackageObject = Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
         return new ServiceFabricConfigurationSettings(configurationPackageObject.Settings);
