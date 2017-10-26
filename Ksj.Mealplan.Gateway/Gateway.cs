@@ -25,7 +25,7 @@ namespace Ksj.Mealplan.Gateway
         private const string InputQueue = "mealplan-input";
         private const string ErrorQueue = "mealplan-error";
         private readonly ServiceFabricConfigurationSettings _configurationSettings;
-        public IBus Bus;
+        public static IBus Bus;
         public Gateway(StatelessServiceContext context)
             : base(context)
         {
@@ -66,6 +66,7 @@ namespace Ksj.Mealplan.Gateway
 
         protected override Task OnCloseAsync(CancellationToken cancellationToken)
         {
+            
             Bus.Dispose();
             return base.OnCloseAsync(cancellationToken);
         }
