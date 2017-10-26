@@ -44,22 +44,23 @@ namespace Ksj.Mealplan.Gateway
             };
         }
 
-        protected override Task OnOpenAsync(CancellationToken cancellationToken)
+        protected override Task RunAsync(CancellationToken cancellationToken)
         {
             var adaptor = new BuiltinHandlerActivator();
-           
+
             Bus = Configure.With(adaptor)
                 .Logging(x => x.Trace())
                 .Transport(x => x.UseAzureServiceBusAsOneWayClient(_configurationSettings.GetConnectionString("AzureServiceBus")))
                 .Routing(r =>
                     r.TypeBased()
-                    .Map<AddGroceryMessage>(InputQueue)
-                    .Map<AddMealMessage>(InputQueue)
+                        .Map<AddGroceryMessage>(InputQueue)
+                        .Map<AddMealMessage>(InputQueue)
                 )
                 .Start();
-        
-            return base.OnOpenAsync(cancellationToken);
+            return base.RunAsync(cancellationToken);
         }
+
+       
     
     private ServiceFabricConfigurationSettings GetServiceConfiguration()
     {
