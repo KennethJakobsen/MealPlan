@@ -4,6 +4,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Web.Http;
 using Ksj.Mealplan.Service;
 using Ksj.Mealplan.Service.Messages;
+using LightInject;
 using Microsoft.ServiceFabric.Data;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Owin;
@@ -18,7 +19,7 @@ namespace Ksj.Mealplan.Gateway
     {
         // This code configures Web API. The Startup class is specified as a type
         // parameter in the WebApp.Start method.
-        public static void ConfigureApp(IAppBuilder appBuilder)
+        public static void ConfigureApp(IAppBuilder appBuilder, LightInject.ServiceContainer container)
         {
             // Configure Web API for self-host. 
             HttpConfiguration config = new HttpConfiguration();
@@ -31,6 +32,8 @@ namespace Ksj.Mealplan.Gateway
             //);
 
             config.EnableCors();
+            container.RegisterApiControllers();
+            container.EnableWebApi(config);
             appBuilder.UseWebApi(config);
         }
 

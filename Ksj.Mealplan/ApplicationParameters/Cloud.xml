@@ -7,5 +7,6 @@
     <Parameter Name="Service_TargetReplicaSetSize" Value="3" />
     <Parameter Name="AzureServiceBus" Value="Endpoint=sb://ksjmealplan.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=x2sldICfAyGonvjZirrRFOPQuusftI6V8Gh4IrFBTkg=" />
     <Parameter Name="SslCertThumbprint" Value="B52BD17153D695F67DB49A5D06FB73522A1D6698" />
+    <Parameter Name="ApplicationInsightsKey" Value="3chhduq2q2z2am4rv6goe6ceqzetg2sk41d6fyuo" />
   </Parameters>
 </Application>

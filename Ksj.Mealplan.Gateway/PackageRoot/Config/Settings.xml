@@ -10,4 +10,7 @@
   <Section Name="ConnectionStrings">
     <Parameter Name="AzureServiceBus" Value="" />
   </Section>
+  <Section Name="ApplicationInsights">
+    <Parameter Name="InstrumentationKey" Value="" />
+  </Section>
 </Settings>

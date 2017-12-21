@@ -9,7 +9,7 @@ using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace Ksj.Mealplan.Gateway
 {
-    [EventSource(Name = "MyCompany-Ksj.Mealplan-Gateway")]
+    [EventSource(Name = "Ksj.Cluster-Gateway")]
     internal sealed class ServiceEventSource : EventSource
     {
        // public static readonly ServiceEventSource Current = new ServiceEventSource();

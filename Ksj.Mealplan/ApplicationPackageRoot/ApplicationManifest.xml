@@ -8,6 +8,7 @@
     <Parameter Name="Service_TargetReplicaSetSize" DefaultValue="3" />
     <Parameter Name="AzureServiceBus" DefaultValue="string" />
     <Parameter Name="SslCertThumbprint" DefaultValue="" />
+    <Parameter Name="ApplicationInsightsKey" DefaultValue="4d218fd5-7cb8-440e-a5c7-62f28756a4ef" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -21,6 +22,9 @@
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
+          <Section Name="ApplicationInsights">
+            <Parameter Name="InstrumentationKey" Value="[ApplicationInsightsKey]" />
+          </Section>
           <Section Name="ConnectionStrings">
             <Parameter Name="AzureServiceBus" Value="[AzureServiceBus]" />
           </Section>
@@ -28,7 +32,7 @@
       </ConfigOverride>
     </ConfigOverrides>
     <Policies>
-      <EndpointBindingPolicy EndpointRef="GatewayServiceEndpoint" CertificateRef="SslCertificate" />
+      <EndpointBindingPolicy EndpointRef="ServiceEndpoint" CertificateRef="SslCertificate" />
     </Policies>
   </ServiceManifestImport>
   <ServiceManifestImport>
@@ -36,6 +40,9 @@
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
+          <Section Name="ApplicationInsights">
+            <Parameter Name="InstrumentationKey" Value="[ApplicationInsightsKey]" />
+          </Section>
           <Section Name="ConnectionStrings">
             <Parameter Name="AzureServiceBus" Value="[AzureServiceBus]" />
           </Section>

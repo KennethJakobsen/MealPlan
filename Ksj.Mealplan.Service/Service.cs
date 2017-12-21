@@ -13,6 +13,8 @@ using Ksj.Mealplan.Service.Handlers;
 using Ksj.Mealplan.Service.IoC;
 using Ksj.Mealplan.Service.Messages;
 using LightInject;
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights.ServiceFabric;
 using Microsoft.Owin.Hosting;
 using Microsoft.ServiceFabric.Data;
 using Microsoft.ServiceFabric.Data.Collections;
@@ -45,6 +47,12 @@ namespace Ksj.Mealplan.Service
         public Service(StatefulServiceContext context)
             : base(context)
         {
+            var telemetryConfig = TelemetryConfiguration.Active;
+            FabricTelemetryInitializerExtension.SetServiceCallContext(context);
+            var config = context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
+            var appInsights = config.Settings.Sections["ApplicationInsights"];
+            telemetryConfig.InstrumentationKey = appInsights.Parameters["InstrumentationKey"].Value;
+
             _rebusContainer = new ServiceContainer();
             
             Bootstrapper.Bootstrap(_rebusContainer);

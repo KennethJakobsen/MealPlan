@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using Ksj.Mealplan.Dtos;
 using Ksj.Mealplan.Service.Messages;
+using Rebus.Bus;
 
 namespace Ksj.Mealplan.Gateway.Controllers
 {
@@ -14,8 +15,11 @@ namespace Ksj.Mealplan.Gateway.Controllers
     [RoutePrefix("groceries")]
     public class GroceryController : BaseApiController
     {
-        public GroceryController() : base(new Uri("fabric:/Ksj.Mealplan/Service"), "groceries")
+        private readonly IBus _bus;
+
+        public GroceryController(IBus bus) : base(new Uri("fabric:/Ksj.Mealplan/Service"), "groceries")
         {
+            _bus = bus;
         }
         [Route("grocery")]
         [HttpGet]
@@ -28,7 +32,7 @@ namespace Ksj.Mealplan.Gateway.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Create([FromBody]GroceryDto grocery)
         {
-            await Gateway.Bus.Publish(new AddGroceryMessage() {Grocery = grocery});
+            await _bus.Publish(new AddGroceryMessage() {Grocery = grocery});
             return Ok();
         }
 

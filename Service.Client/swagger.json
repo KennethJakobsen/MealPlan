@@ -1,0 +1,85 @@
+﻿{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1",
+    "title": "Meal service"
+  },
+  "host": "localhost:30041",
+  "basePath": "/mealplan",
+  "schemes": [ "http" ],
+  "paths": {
+    "/grocery": {
+      "get": {
+        "tags": [ "Grocery" ],
+        "operationId": "Grocery_GetAll",
+        "consumes": [],
+        "produces": [ "application/json", "text/json" ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "object" }
+          }
+        }
+      }
+    },
+    "/grocery/search/{phrase}": {
+      "get": {
+        "tags": [ "Grocery" ],
+        "operationId": "Grocery_Search",
+        "consumes": [],
+        "produces": [ "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "phrase",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "object" }
+          }
+        }
+      }
+    },
+    "/meal": {
+      "get": {
+        "tags": [ "Meal" ],
+        "operationId": "Meal_GetMeals",
+        "consumes": [],
+        "produces": [ "application/json", "text/json" ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "object" }
+          }
+        }
+      }
+    },
+    "/meal/search/{phrase}": {
+      "get": {
+        "tags": [ "Meal" ],
+        "operationId": "Meal_FindMeals",
+        "consumes": [],
+        "produces": [ "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "phrase",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "object" }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

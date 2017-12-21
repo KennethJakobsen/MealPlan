@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.8
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "Ksj.Mealplan", "Ksj.Mealplan\Ksj.Mealplan.sfproj", "{69842575-BAE1-40DF-B6EA-B89C07418475}"
 EndProject
@@ -19,7 +19,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ksj.Mealplan.Dtos", "Ksj.Me
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ksj.Mealplan.Gateway", "Ksj.Mealplan.Gateway\Ksj.Mealplan.Gateway.csproj", "{5437AEDB-EF2E-480E-B90B-EED8249253B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ksj.Mealplan.Notification", "Ksj.Mealplan.Notification\Ksj.Mealplan.Notification.csproj", "{5F386BCA-C05B-413E-ADCD-4D0A144C5BEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ksj.Mealplan.Notification", "Ksj.Mealplan.Notification\Ksj.Mealplan.Notification.csproj", "{5F386BCA-C05B-413E-ADCD-4D0A144C5BEB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{25583221-0F03-4252-BED1-0F9C11032A3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3EB19ED1-576B-4C10-9EF4-F24443DACE92}"
+	ProjectSection(SolutionItems) = preProject
+		commands.json = commands.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Client", "Service.Client\Service.Client.csproj", "{6EDD84C8-E420-4ED0-A4CE-4A8ECE651ED7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,9 +96,20 @@ Global
 		{5F386BCA-C05B-413E-ADCD-4D0A144C5BEB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5F386BCA-C05B-413E-ADCD-4D0A144C5BEB}.Release|x64.ActiveCfg = Release|Any CPU
 		{5F386BCA-C05B-413E-ADCD-4D0A144C5BEB}.Release|x64.Build.0 = Release|Any CPU
+		{6EDD84C8-E420-4ED0-A4CE-4A8ECE651ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EDD84C8-E420-4ED0-A4CE-4A8ECE651ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EDD84C8-E420-4ED0-A4CE-4A8ECE651ED7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6EDD84C8-E420-4ED0-A4CE-4A8ECE651ED7}.Debug|x64.Build.0 = Debug|Any CPU
+		{6EDD84C8-E420-4ED0-A4CE-4A8ECE651ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EDD84C8-E420-4ED0-A4CE-4A8ECE651ED7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EDD84C8-E420-4ED0-A4CE-4A8ECE651ED7}.Release|x64.ActiveCfg = Release|Any CPU
+		{6EDD84C8-E420-4ED0-A4CE-4A8ECE651ED7}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6EDD84C8-E420-4ED0-A4CE-4A8ECE651ED7} = {25583221-0F03-4252-BED1-0F9C11032A3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A717B5B6-4DFF-425B-A2FE-4A8D1FC032CE}

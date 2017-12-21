@@ -22,8 +22,9 @@
   -->
   <ClusterConnectionParameters ConnectionEndpoint="cluster.kenned.dk:19000"
                                X509Credential="true"
-                               ServerCertThumbPrint=""
+                               ServerCertThumbPrint="B52BD17153D695F67DB49A5D06FB73522A1D6698"
                                FindType="FindByThumbprint"
+                               FindValue="B52BD17153D695F67DB49A5D06FB73522A1D6698"
                                StoreLocation="CurrentUser"
                                StoreName="My"
                                />

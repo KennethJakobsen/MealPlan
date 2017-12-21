@@ -1,0 +1,9 @@
+{
+  "commands": {
+    "GenerateServiceClient": {
+      "fileName": "autorest",
+      "workingDirectory": ".\\Service.Client",
+      "arguments": "-n Service.Client -i swagger.json -o"
+    }
+  }
+}

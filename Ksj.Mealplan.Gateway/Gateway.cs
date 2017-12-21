@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using Ksj.Mealplan.Messages;
 using Ksj.Mealplan.Service;
 using Ksj.Mealplan.Service.Messages;
+using LightInject;
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights.ServiceFabric;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Rebus.Activation;
@@ -25,11 +28,20 @@ namespace Ksj.Mealplan.Gateway
         private const string InputQueue = "mealplan-input";
         private const string ErrorQueue = "mealplan-error";
         private readonly ServiceFabricConfigurationSettings _configurationSettings;
-        public static IBus Bus;
+        private  IBus _bus;
+        private readonly ServiceContainer _container;
+
         public Gateway(StatelessServiceContext context)
             : base(context)
         {
+            var telemetryConfig = TelemetryConfiguration.Active;
+            FabricTelemetryInitializerExtension.SetServiceCallContext(context);
+            var config = context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
+            var appInsights = config.Settings.Sections["ApplicationInsights"];
+            telemetryConfig.InstrumentationKey = appInsights.Parameters["InstrumentationKey"].Value;
             _configurationSettings = GetServiceConfiguration();
+            _container = new ServiceContainer();
+           
         }
         
         /// <summary>
@@ -38,18 +50,22 @@ namespace Ksj.Mealplan.Gateway
         /// <returns>The collection of listeners.</returns>
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
         {
-            return new ServiceInstanceListener[]
+            return new []
             {
-                new ServiceInstanceListener(serviceContext => new OwinCommunicationListener(Startup.ConfigureApp, serviceContext, null, "GatewayServiceEndpoint", "api"))
+                new ServiceInstanceListener(serviceContext => new OwinCommunicationListener((builder) =>
+                {
+                    Startup.ConfigureApp(builder, _container);
+                },serviceContext
+                , null, "ServiceEndpoint", "api"))
             };
         }
 
         protected override Task RunAsync(CancellationToken cancellationToken)
         {
 
-            if (cancellationToken.IsCancellationRequested)
+            if (!cancellationToken.IsCancellationRequested)
             {
-                Bus = Configure.With(new BuiltinHandlerActivator())
+                _bus = Configure.With(new BuiltinHandlerActivator())
                     .Logging(x => x.Trace())
                     .Transport(x =>
                         x.UseAzureServiceBusAsOneWayClient(
@@ -60,6 +76,7 @@ namespace Ksj.Mealplan.Gateway
                             .Map<AddMealMessage>(InputQueue)
                     )
                     .Start();
+                _container.RegisterInstance<IBus>(_bus);
             }
             return base.RunAsync(cancellationToken);
         }
@@ -67,7 +84,7 @@ namespace Ksj.Mealplan.Gateway
         protected override Task OnCloseAsync(CancellationToken cancellationToken)
         {
             
-            Bus.Dispose();
+            _bus.Dispose();
             return base.OnCloseAsync(cancellationToken);
         }
 
