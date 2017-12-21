@@ -20,7 +20,13 @@
                                     AzureActiveDirectory="true"
                                     ServerCertThumbprint="0123456789012345678901234567890123456789" />
   -->
-  <ClusterConnectionParameters ConnectionEndpoint="mealplan.westeurope.cloudapp.azure.com:19000" />
+  <ClusterConnectionParameters ConnectionEndpoint="cluster.kenned.dk:19000"
+                               X509Credential="true"
+                               ServerCertThumbPrint=""
+                               FindType="FindByThumbprint"
+                               StoreLocation="CurrentUser"
+                               StoreName="My"
+                               />
   <ApplicationParameterFile Path="..\ApplicationParameters\Cloud.xml" />
   <UpgradeDeployment Mode="Monitored" Enabled="true">
     <Parameters FailureAction="Rollback" Force="True" />

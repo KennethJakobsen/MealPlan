@@ -36,9 +36,14 @@
 
   <PropertyGroup>
     <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+    <ApplicationInsightsResourceId>/subscriptions/dddaa713-fe09-4c47-a7ed-9e5dc5788922/resourcegroups/Ksj.Cluster/providers/microsoft.insights/components/Ksj.Cluster</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/dddaa713-fe09-4c47-a7ed-9e5dc5788922/resourceGroups/Ksj.Cluster/providers/microsoft.insights/components/Ksj.Cluster</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>

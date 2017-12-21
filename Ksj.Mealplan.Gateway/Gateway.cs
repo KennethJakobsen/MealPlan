@@ -40,7 +40,7 @@ namespace Ksj.Mealplan.Gateway
         {
             return new ServiceInstanceListener[]
             {
-                new ServiceInstanceListener(serviceContext => new OwinCommunicationListener(Startup.ConfigureApp, serviceContext, null, "ServiceEndpoint", "api"))
+                new ServiceInstanceListener(serviceContext => new OwinCommunicationListener(Startup.ConfigureApp, serviceContext, null, "GatewayServiceEndpoint", "api"))
             };
         }
 

@@ -7,6 +7,7 @@
     <Parameter Name="Service_PartitionCount" DefaultValue="1" />
     <Parameter Name="Service_TargetReplicaSetSize" DefaultValue="3" />
     <Parameter Name="AzureServiceBus" DefaultValue="string" />
+    <Parameter Name="SslCertThumbprint" DefaultValue="" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -26,6 +27,9 @@
         </Settings>
       </ConfigOverride>
     </ConfigOverrides>
+    <Policies>
+      <EndpointBindingPolicy EndpointRef="GatewayServiceEndpoint" CertificateRef="SslCertificate" />
+    </Policies>
   </ServiceManifestImport>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="Ksj.Mealplan.ServicePkg" ServiceManifestVersion="1.0.3" />
@@ -61,4 +65,7 @@
       </StatefulService>
     </Service>
   </DefaultServices>
+  <Certificates>
+    <EndpointCertificate X509StoreName="MY" X509FindValue="[SslCertThumbprint]" Name="SslCertificate" />
+  </Certificates>
 </ApplicationManifest>
