@@ -4,11 +4,11 @@
     "version": "v1",
     "title": "Meal service"
   },
-  "host": "localhost:30041",
+  "host": "localhost:30012",
   "basePath": "/mealplan",
   "schemes": [ "http" ],
   "paths": {
-    "/grocery": {
+    "/groceries": {
       "get": {
         "tags": [ "Grocery" ],
         "operationId": "Grocery_GetAll",
@@ -17,12 +17,15 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "type": "object" }
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Grocery" }
+            }
           }
         }
       }
     },
-    "/grocery/search/{phrase}": {
+    "/groceries/search/{phrase}": {
       "get": {
         "tags": [ "Grocery" ],
         "operationId": "Grocery_Search",
@@ -39,12 +42,15 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "type": "object" }
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Grocery" }
+            }
           }
         }
       }
     },
-    "/meal": {
+    "/meals": {
       "get": {
         "tags": [ "Meal" ],
         "operationId": "Meal_GetMeals",
@@ -53,12 +59,15 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "type": "object" }
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Meal" }
+            }
           }
         }
       }
     },
-    "/meal/search/{phrase}": {
+    "/meals/search/{phrase}": {
       "get": {
         "tags": [ "Meal" ],
         "operationId": "Meal_FindMeals",
@@ -75,11 +84,92 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "type": "object" }
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Meal" }
+            }
           }
         }
       }
     }
   },
-  "definitions": {}
+  "definitions": {
+    "Grocery": {
+      "type": "object",
+      "properties": {
+        "Name": { "type": "string" },
+        "PluralName": { "type": "string" },
+        "KcalPer100g": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "AverageGramsPerUnit": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "UnitName": { "type": "string" },
+        "Id": { "type": "string" },
+        "Category": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Category" }
+        }
+      }
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "Name": { "type": "string" },
+        "Id": {
+          "format": "uuid",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        }
+      }
+    },
+    "Meal": {
+      "type": "object",
+      "properties": {
+        "Groceries": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/GroceryLine" }
+        },
+        "Name": { "type": "string" },
+        "Instructions": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Instruction" }
+        },
+        "NumberOfPersons": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "Category": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Category" }
+        },
+        "Id": {
+          "format": "uuid",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        }
+      }
+    },
+    "GroceryLine": {
+      "type": "object",
+      "properties": {
+        "Amount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "Grocery": { "$ref": "#/definitions/Grocery" },
+        "Unit": { "type": "string" }
+      }
+    },
+    "Instruction": {
+      "type": "object",
+      "properties": {
+        "Headline": { "type": "string" },
+        "Description": { "type": "string" }
+      }
+    }
+  }
 }

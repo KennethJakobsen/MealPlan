@@ -30,6 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.10\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,9 +47,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GroceryOperations.cs" />
+    <Compile Include="GroceryOperationsExtensions.cs" />
+    <Compile Include="IGroceryOperations.cs" />
+    <Compile Include="IMealOperations.cs" />
+    <Compile Include="IMealservice.cs" />
+    <Compile Include="MealOperations.cs" />
+    <Compile Include="MealOperationsExtensions.cs" />
+    <Compile Include="Mealservice.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Grocery.cs" />
+    <Compile Include="Models\GroceryLine.cs" />
+    <Compile Include="Models\Instruction.cs" />
+    <Compile Include="Models\Meal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="readme.md" />
     <None Include="swagger.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

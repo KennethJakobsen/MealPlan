@@ -16,6 +16,10 @@ using Rebus.Activation;
 using Rebus.Bus;
 using Rebus.Config;
 using Rebus.Routing.TypeBased;
+using ServiceFabric.AutoRest.Communication.Client;
+using Ksj.Service.Client;
+using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Communication.Client;
 
 namespace Ksj.Mealplan.Gateway
 {
@@ -28,12 +32,15 @@ namespace Ksj.Mealplan.Gateway
         private const string InputQueue = "mealplan-input";
         private const string ErrorQueue = "mealplan-error";
         private readonly ServiceFabricConfigurationSettings _configurationSettings;
-        private  IBus _bus;
+        private IBus _bus;
         private readonly ServiceContainer _container;
 
         public Gateway(StatelessServiceContext context)
             : base(context)
         {
+            var client = new FabricClient();
+            var communicationClientFactory = new RestCommunicationClientFactory<Mealservice>(new ServicePartitionResolver(() => client));
+            var partitionClient = new RestServicePartitionClient<Mealservice>(communicationClientFactory, new Uri("fabric:/Ksj.Mealplan/Service"), new ServicePartitionKey(long.MinValue), TargetReplicaSelector.RandomReplica);
             var telemetryConfig = TelemetryConfiguration.Active;
             FabricTelemetryInitializerExtension.SetServiceCallContext(context);
             var config = context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
@@ -41,22 +48,26 @@ namespace Ksj.Mealplan.Gateway
             telemetryConfig.InstrumentationKey = appInsights.Parameters["InstrumentationKey"].Value;
             _configurationSettings = GetServiceConfiguration();
             _container = new ServiceContainer();
-           
+            _container.RegisterInstance<IRestServicePartitionClient<Mealservice>>(partitionClient);
+
         }
-        
+
         /// <summary>
         /// Optional override to create listeners (like tcp, http) for this service instance.
         /// </summary>
         /// <returns>The collection of listeners.</returns>
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
         {
-            return new []
+            return new[]
             {
                 new ServiceInstanceListener(serviceContext => new OwinCommunicationListener((builder) =>
                 {
                     Startup.ConfigureApp(builder, _container);
-                },serviceContext
-                , null, "ServiceEndpoint", "api"))
+                },
+                serviceContext, 
+                null, 
+                "ServiceEndpoint", 
+                "api"))
             };
         }
 
@@ -83,16 +94,16 @@ namespace Ksj.Mealplan.Gateway
 
         protected override Task OnCloseAsync(CancellationToken cancellationToken)
         {
-            
+
             _bus.Dispose();
             return base.OnCloseAsync(cancellationToken);
         }
 
         private ServiceFabricConfigurationSettings GetServiceConfiguration()
-    {
-        var configurationPackageObject = Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
-        return new ServiceFabricConfigurationSettings(configurationPackageObject.Settings);
+        {
+            var configurationPackageObject = Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
+            return new ServiceFabricConfigurationSettings(configurationPackageObject.Settings);
+        }
     }
-}
 
 }

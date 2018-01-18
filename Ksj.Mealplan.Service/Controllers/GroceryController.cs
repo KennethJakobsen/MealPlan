@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Ksj.Mealplan.Domain.Model;
 using Ksj.Mealplan.Infrastructure;
 
 namespace Ksj.Mealplan.Service.Controllers
 {
-    [RoutePrefix("grocery")]
+    [RoutePrefix("groceries")]
     public class GroceryController : ApiController
     {
         private readonly IRepository<Grocery> _repo;
@@ -16,18 +17,18 @@ namespace Ksj.Mealplan.Service.Controllers
         }
         [Route("")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetAll()
+        public async Task<IEnumerable<Grocery>> GetAll()
         {
             var groceries = await _repo.GetAll();
-            return Ok(groceries);
+            return groceries;
         }
 
         [Route("search/{phrase}")]
         [HttpGet]
-        public async Task<IHttpActionResult> Search(string phrase)
+        public async Task<IEnumerable<Grocery>> Search(string phrase)
         {
             var groceries = await _repo.Search(phrase);
-            return Ok(groceries);
+            return groceries;
         }
         
     }

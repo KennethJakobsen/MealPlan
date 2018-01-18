@@ -28,6 +28,8 @@ namespace Ksj.Mealplan.Service
             httpConfiguration.EnsureInitialized();
             container.EnableWebApi(httpConfiguration);
             appBuilder.UseWebApi(httpConfiguration);
+           
+            
             
         }
         private static HttpConfiguration CreateHttpConfiguration(string appRoot)
@@ -46,7 +48,7 @@ namespace Ksj.Mealplan.Service
             });
 
 
-
+            
             config.Formatters.Clear();
             config.Formatters.Add(new JsonMediaTypeFormatter());
 

@@ -35,6 +35,7 @@ namespace Ksj.Mealplan.Gateway
             container.RegisterApiControllers();
             container.EnableWebApi(config);
             appBuilder.UseWebApi(config);
+            config.EnsureInitialized();
         }
 
     }

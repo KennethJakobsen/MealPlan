@@ -234,6 +234,10 @@
       <Project>{3ce3dd58-4f6d-48bc-baec-941bb2f24827}</Project>
       <Name>Ksj.Mealplan.Messages</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Service.Client\Service.Client.csproj">
+      <Project>{6EDD84C8-E420-4ED0-A4CE-4A8ECE651ED7}</Project>
+      <Name>Service.Client</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

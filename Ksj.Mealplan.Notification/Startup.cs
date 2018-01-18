@@ -37,6 +37,7 @@ namespace Ksj.Mealplan.Notification
         {
             // Add framework services.
             services.AddMvc();
+            services.AddApplicationInsightsTelemetry();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -62,6 +63,7 @@ namespace Ksj.Mealplan.Notification
                 s.MapHub<ChatHub>("hubs/chat");
 
             });
+            
             app.UseMvc();
             
 
